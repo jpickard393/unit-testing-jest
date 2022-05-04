@@ -1,4 +1,12 @@
 export default class Client {
-   receive () {
+   constructor(name){
+      this.name = name;
    }
+   receive (message) {
+   }
+
+   name(){
+      return this.name;
+   }
+   
 }

@@ -3,20 +3,29 @@ import Client from '../src/Client';
 import Message from '../src/Message';
 
 // create a mock instance of the client class
-jest.mock('../src/Client');
+//jest.mock('../src/Client');
 
-describe('RaceResultsService',() => {
-    const raceResultsService = new RaceResultsService();
-    const client = new Client();
-
-    jest.spyOn(client,'receive');
+describe('RaceResultsService',() => {   
     test('Subscribed Client Should Recieve Message',() => {
+        const client = new Client("ClientA");
+        const raceResultsService = new RaceResultsService();
         const message = new Message();
+        jest.spyOn(client,'receive');
         
         raceResultsService.addSubscriber(client);
+        console.log(client.name);
         raceResultsService.send(message);
-        expect(client.receive).toBeCalledWith(message);
-        
+        expect(client.receive).toHaveBeenCalledWith(message);
+    });
+
+    test('None Subscribed clients should not recieve message',() => {
+        const client = new Client("ClientB");
+        const raceResultsService = new RaceResultsService();
+        const message = new Message();
+        console.log(client.name);
+              
+        raceResultsService.send(message);
+        expect(raceResultsService.client).toBeUndefined();
     });
 
 

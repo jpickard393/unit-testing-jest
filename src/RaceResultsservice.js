@@ -7,6 +7,13 @@ export default class RaceResultsService{
     }
 
     send(message){
-        this.client.receive(message);
+        console.log(this.client);
+        if(this.client !== undefined){
+            this.client.receive(message);
+        }
+        else{
+            console.log(this.client,'error');
+            return "Error - No Client Subscribed";
+        }
     }
 }
