@@ -1,1 +1,5 @@
-export default class Message{}
+export default class Message{
+    messageText() {
+        
+    }
+}

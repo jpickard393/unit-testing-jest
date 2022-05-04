@@ -1,11 +1,12 @@
 export default class RaceResultsService{
-    clients = [];
+    constructor() {
+    }
 
     addSubscriber(client) {
-        this.clients.push(client);
+        this.client = client;
     }
 
     send(message){
-        clients.forEach(c => c.receive(message));
+        this.client.receive(message);
     }
 }
