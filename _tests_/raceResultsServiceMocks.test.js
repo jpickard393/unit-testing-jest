@@ -1,4 +1,5 @@
 import Message from '../src/Message';
+import RaceResultsService from '../src/RaceResultsservice';
 
 const client = jest.mock('../src/Client', () => {
     return class {
@@ -10,30 +11,11 @@ const client = jest.mock('../src/Client', () => {
     }
 });
 
-const raceResultsService = jest.mock('../src/raceResultsService',() => {
-    return class {
-   
-    addSubscriber(client) {
-        this.client = client;
-    }
-
-    send(message){
-        console.log(this.client);
-        if(this.client !== undefined){
-            this.client.receive(message);
-        }
-        else{
-            console.log(this.client,'error');
-            return "Error - No Client Subscribed";
-        }
-    }
-}
-});
-
 
 describe('RaceResultsService',() => {   
     
     test('Subscribed Client Should Recieve Message',() => {
+        const raceResultsService = new RaceResultsService();
         console.log(client.name);
         const message = new Message();
 
