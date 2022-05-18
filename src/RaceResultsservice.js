@@ -6,6 +6,10 @@ export default class RaceResultsService{
         this.client = client;
     }
 
+    removeSubscriber(){
+        this.client = undefined;
+    }
+
     send(message){
         if(this.client !== undefined){
             this.client.receive(message);
