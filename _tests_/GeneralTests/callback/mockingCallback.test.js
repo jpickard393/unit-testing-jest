@@ -4,7 +4,7 @@ const doAdd = (a, b, callback) => {
   };
   
   describe("mock a callback",()=> {
-    test("calls callback with arguments added", () => {
+    test("calls callback", () => {
       const mockCallback = jest.fn();  // mock the callback function
   
       doAdd(1, 2, mockCallback);  // call doAdd but pass in the mockCallback
