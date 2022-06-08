@@ -35,9 +35,7 @@ describe ('raceResults service enhanced',() => {
         expect(receiveMock).toHaveReturnedWith(true);
     });
 
-    test('Client should not receive a message of a category it is NOT subscribed to', () => {
-        jest.mock("../src/Message");
-        
+    test('Client should not receive a message of a category it is NOT subscribed to', () => {        
         const unsubscribedCategory = 'Snail Racing';
         const receiveMock =  jest.spyOn(client, "receive");
         const message = new Message(unsubscribedCategory);
