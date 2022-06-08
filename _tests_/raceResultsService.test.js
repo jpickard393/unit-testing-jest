@@ -9,6 +9,8 @@ const raceResultsService = new RaceResultsService();
 
 describe('RaceResultsService',() => {   
     test('Subscribed Client should receive Message', () => {
+        // SUT is raceResultsService
+        
         const client = new Client();
         const message = new Message();
             
