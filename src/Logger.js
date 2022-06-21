@@ -3,7 +3,7 @@ export default class Logger{
         
     }
 
+    // test that is is called with the correct date and text
     logMessage(msgDate, msgText) {
-        // test that is is called with the correct date and text
     }
 }

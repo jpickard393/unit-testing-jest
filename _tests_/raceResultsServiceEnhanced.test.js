@@ -52,29 +52,26 @@ describe('Message sent by RaceResults Service Should be Logged',() => {
     const category = 'Boat Race';
     const msgDate = "20/06/2022";
     const msgText = "Hello from Logger";
-    let raceResultsService;
     let logger;
     let client;
     let message; 
-
-    jest.mock("../src/Message");
     
-    beforeEach(() => {
-        logger = new Logger(); // real logger to test
-        raceResultsService = new RaceResultsService(logger);
+    jest.mock("../src/Message");
+
+    beforeEach(() => {    
         client = new Client('Client1',category);
         message = new Message(category,msgText,msgDate);
     });
     
-    test.only('date and text of each message should be logged',() => {       
+    test('date and text of each message should be logged',() => {  
+        jest.mock("../src/Logger");
+        logger = new Logger();
+        const raceResultsService = new RaceResultsService(logger);    
+        
+        const logMessageMock = jest.spyOn(client, "receive"); // remember to set this up before client is used
         raceResultsService.addSubscriber(client);
         raceResultsService.send(message);
-
-        const logMessageMock = jest.spyOn(client, "logIncomingMessage");
         
-        expect(logMessageMock).toHaveBeenCalled();
-
-        //expect(logMessageMock).toHaveBeenCalledWith(logger,message);
-
+        expect(logMessageMock).toHaveBeenCalledWith(logger,message);
     });
 });

@@ -3,10 +3,6 @@ export default class RaceResultsService{
         this.logger = logger
     }
 
-    logger(){
-        return this.logger;
-    }
-
     addSubscriber(client) {
         this.client = client;
     }
