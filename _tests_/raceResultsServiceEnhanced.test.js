@@ -11,11 +11,11 @@ describe ('raceResults service enhanced',() => {
     let client;
     let message; 
     const logger = new Logger();
-    const raceResultsService = new RaceResultsService(logger);
+    const raceResultsService = new RaceResultsService();
     const category = 'Horse Race';
     
     beforeEach(() => {
-        client = new Client('Client1',category);
+        client = new Client('Client1',category, logger);
         message = new Message(category);
     });
      
@@ -49,29 +49,39 @@ describe ('raceResults service enhanced',() => {
 
 describe('Message sent by RaceResults Service Should be Logged',() => {
     // SUT = Client
+    jest.mock("../src/Message");
+    jest.mock("../src/Logger");
+
+    const raceResultsService = new RaceResultsService(); 
+
     const category = 'Boat Race';
     const msgDate = "20/06/2022";
     const msgText = "Hello from Logger";
     let logger;
     let client;
     let message; 
-    
-    jest.mock("../src/Message");
 
     beforeEach(() => {    
-        client = new Client('Client1',category);
+        logger = new Logger();
+        client = new Client('Client1',category, logger);
         message = new Message(category,msgText,msgDate);
     });
     
-    test('date and text of each message should be logged',() => {  
-        jest.mock("../src/Logger");
-        logger = new Logger();
-        const raceResultsService = new RaceResultsService(logger);    
-        
-        const logMessageMock = jest.spyOn(client, "receive"); // remember to set this up before client is used
+    test('Date and text of each message should be logged',() => {  
+        const logIncomingMessageMock = jest.spyOn(client, "logIncomingMessage"); // remember to set this up before client is used
+
         raceResultsService.addSubscriber(client);
         raceResultsService.send(message);
         
-        expect(logMessageMock).toHaveBeenCalledWith(logger,message);
+        expect(logIncomingMessageMock).toHaveBeenCalledWith(message);
+    });
+
+    test('Logger LogMessage function Should be called with correct message',() => {   
+        const logMessageMock = jest.spyOn(logger, "logMessage")
+
+        raceResultsService.addSubscriber(client);
+        raceResultsService.send(message);
+        
+        expect(logMessageMock).toHaveBeenCalledWith(message);
     });
 });

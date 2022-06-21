@@ -1,11 +1,14 @@
 export default class Client {
-   constructor(name, subscribedCategory){
+   _logger;
+   constructor(name, subscribedCategory, logger){
       this.name = name;
       this.subscribedCategory = subscribedCategory;
+      this._logger = logger;
    }
-   receive (logger,message) {
+
+   receive (message) {
       // only accept categories this client has subscribed to
-      this.logIncomingMessage(logger,message);
+      this.logIncomingMessage(message);
       return message.category === this.subscribedCategory;
    }
 
@@ -17,7 +20,7 @@ export default class Client {
       return this.subscribedCategory;
    }
 
-   logIncomingMessage(logger,message){
-      logger.logMessage(message);
+   logIncomingMessage(message){
+      this._logger.logMessage(message);
    }
 }

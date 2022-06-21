@@ -1,6 +1,5 @@
 export default class RaceResultsService{
-    constructor(logger) {
-        this.logger = logger
+    constructor() {
     }
 
     addSubscriber(client) {
@@ -13,7 +12,7 @@ export default class RaceResultsService{
 
     send(message){
         if(this.client !== undefined){
-            this.client.receive(this.logger,message);
+            this.client.receive(message);
         }
         else{
             console.log(this.client,'error');
