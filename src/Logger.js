@@ -5,5 +5,6 @@ export default class Logger{
 
     // test that is is called with the correct date and text
     logMessage(message) {
+        
     }
 }

@@ -47,7 +47,7 @@ describe ('raceResults service enhanced',() => {
     });
 });
 
-describe('Message sent by RaceResults Service Should be Logged',() => {
+describe('Message sent by RaceResults Service Should log Date and text of each message',() => {
     // SUT = Client
     jest.mock("../src/Message");
     jest.mock("../src/Logger");
@@ -67,7 +67,7 @@ describe('Message sent by RaceResults Service Should be Logged',() => {
         message = new Message(category,msgText,msgDate);
     });
     
-    test('Date and text of each message should be logged',() => {  
+    test('Client logIncomingMessage function should be called with correct message ',() => {  
         const logIncomingMessageMock = jest.spyOn(client, "logIncomingMessage"); // remember to set this up before client is used
 
         raceResultsService.addSubscriber(client);
