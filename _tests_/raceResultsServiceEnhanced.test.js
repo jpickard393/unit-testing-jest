@@ -19,6 +19,7 @@ describe ('raceResults service enhanced',() => {
         message = new Message(category);
     });
      
+    // should be test of client or make raceresult interact with client
     test('Client subscribedCategory should be same as the message category', () => {
         raceResultsService.addSubscriber(client);
         raceResultsService.send(message);
@@ -67,14 +68,14 @@ describe('Message sent by RaceResults Service Should log Date and text of each m
         message = new Message(category,msgText,msgDate);
     });
     
-    test('Client logIncomingMessage function should be called with correct message ',() => {  
-        const logIncomingMessageMock = jest.spyOn(client, "logIncomingMessage"); // remember to set this up before client is used
+    // test('Client logIncomingMessage function should be called with correct message ',() => {  
+    //     const logIncomingMessageMock = jest.spyOn(client, "logIncomingMessage"); // remember to set this up before client is used
 
-        raceResultsService.addSubscriber(client);
-        raceResultsService.send(message);
+    //     raceResultsService.addSubscriber(client);
+    //     raceResultsService.send(message);
         
-        expect(logIncomingMessageMock).toHaveBeenCalledWith(message);
-    });
+    //     expect(logIncomingMessageMock).toHaveBeenCalledWith(message);
+    // });
 
     test('Logger LogMessage function Should be called with correct message',() => {   
         const logMessageMock = jest.spyOn(logger, "logMessage")
@@ -85,3 +86,6 @@ describe('Message sent by RaceResults Service Should log Date and text of each m
         expect(logMessageMock).toHaveBeenCalledWith(message);
     });
 });
+
+
+// put these in client test no race results
