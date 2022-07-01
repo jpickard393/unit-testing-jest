@@ -2,7 +2,7 @@ Test client and logger seperately
 create client class test and logger tests
 word the test descriptions correctly
 
-Test send(message) in RaceResultsService
+Test send(message) in RaceResultsService  should be returned
 
 Test Logger in its own test class.
 

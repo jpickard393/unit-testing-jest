@@ -13,7 +13,6 @@ export default class RaceResultsService{
     send(message){
         if(this.client !== undefined){
             // return result of send attempt
-            console.log(this.client);
             return this.client.receive(message);
         }
         else{

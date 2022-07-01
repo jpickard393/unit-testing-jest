@@ -4,29 +4,33 @@ import Message from '../src/Message';
 import Logger from '../src/Logger';
 
 describe ('Client',() => {
-    // SUT is Client   
+    // SUT is Client so we need the real class
+
     jest.mock("../src/Message");
-    jest.mock("../src/Client");
-    jest.mock("../src/Logger");  // don't need real logger here so mock
+    jest.mock("../src/Logger");
 
     let client;
     let message; 
+    //const logger = jest.fn({logMessage:jest.fn(message)});// new Logger();
     const logger = new Logger();
-    const raceResultsService = new RaceResultsService();
+    const raceResultsService = new RaceResultsService(); // nothing to do with client
     const category = 'Horse Race';
+    const clientName ='Client1Name';
     
     beforeEach(() => {
-        client = new Client('Client1',category, logger);
+        client = new Client('Client1Name',category, logger);
         message = new Message(category);
     });
 
-    test('None Subscribed clients should not recieve message',() => {
-        const receiveMock =  jest.spyOn(client, "receive");
-
-        raceResultsService.send(message);
-        expect(receiveMock).not.toHaveBeenCalledWith(message);
+    test('it should call the logger when a message is received',() => {
+        const logMessageMock =  jest.spyOn(logger, "logMessage");
+        client.receive(message);
+        expect(logMessageMock).toHaveBeenCalledWith(message);
     });
 
+    test('it SHOULD update the client name',()=>{
+        expect(client.name).toBe(clientName);
+    })
     
     test('Client subscribedCategory should be same as the message category', () => {
         raceResultsService.addSubscriber(client);

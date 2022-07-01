@@ -8,6 +8,7 @@ export default class Client {
 
    receive (message) {
       // only accept categories this client has subscribed to
+      
       this.logIncomingMessage(message);
       return message.category === this.subscribedCategory;
    }

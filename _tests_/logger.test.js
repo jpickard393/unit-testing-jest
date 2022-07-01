@@ -5,31 +5,13 @@ import Logger from '../src/Logger';
 
 describe('Message sent by RaceResults Service Should log Date and text of each message',() => {
     // SUT = Logger
-    jest.mock('../src/Client');
-    jest.mock("../src/Message");
-    jest.mock("../src/Logger");
-
-    const raceResultsService = new RaceResultsService(); 
-
-    const category = 'Boat Race';
-    const msgDate = "20/06/2022";
-    const msgText = "Hello from Logger";
-    let logger;
-    let client;
-    let message; 
-
-    beforeEach(() => {    
-        logger = new Logger();
-        client = new Client('Client1',category, logger);
-        message = new Message(category,msgText,msgDate);
+    
+    // just need to test that the logger will call console.log with the right value
+    test('message SHOULD be logged to console',()=>{
+        const logger = new Logger();
+        console.log = jest.fn();
+        logger.logMessage('Hello');
+        expect(console.log).toHaveBeenCalledWith("Hello");
     });
 
-    test('Logger LogMessage function Should be called with correct message',() => {   
-        const logMessageMock = jest.spyOn(logger, "logMessage")
-
-        raceResultsService.addSubscriber(client);
-        raceResultsService.send(message);
-        
-        expect(logMessageMock).toHaveBeenCalledWith(message);
-    });
 });
