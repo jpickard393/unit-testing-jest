@@ -7,7 +7,7 @@ describe('Message',() => {
     const msgDate = '10/07/2022';
     const message = new Message(category,msgText,msgDate);
     
-    // just need to test that the message is ctreated with the correct values
+    // just need to test that the message is ctreated with the correct values. 
     test('Message is ctreated with the correct values',()=>{
         expect(message.category).toBe(category);
         expect(message.messageText).toBe(msgText);
