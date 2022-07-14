@@ -5,10 +5,7 @@ import Logger from '../src/Logger';
 
 jest.mock("../src/Message");
 jest.mock("../src/Logger");
-//jest.mock("../src/Client");
-
-// should I mock raceResultsService or use concrete class
-// as the client is mocked is this actualy a realistic test
+jest.mock("../src/Client");
 
 describe('RaceResultsService',() => {  
     const category = 'Horse Race';
@@ -24,25 +21,17 @@ describe('RaceResultsService',() => {
         client = new Client('Client1Name',category, logger);        
     });
     
-    test('addSubscriber',() =>{
+    test('add Subscriber',() =>{
         raceResultsService.addSubscriber(client);
         expect(raceResultsService.client).toBe(client);
     });
 
-    test('removeSubscriber',() =>{
+    test('remove Subscriber',() =>{
         raceResultsService.removeSubscriber(client);
         expect(raceResultsService.client).not.toBe(client);
     });
 
-    // this goes through the real client class.  Can we mock it
-    test('RaceResultsService send method should return true',() =>{
-        raceResultsService.addSubscriber(client);
-        
-        const sendResult = raceResultsService.send(message);
-        expect(sendResult).toBe(true);
-    });
-
-    // here I mock raceResultsService as I don't need the class, but I spy on the send method
+    // here I mock raceResultsService as I don't need the class, but I spy on the send method.  Is this OK?
     test('send',() =>{
         jest.mock("../src/RaceResultsservice");
         

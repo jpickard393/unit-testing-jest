@@ -18,9 +18,15 @@ describe ('Client',() => {
     const clientName ='Client1Name';
     
     beforeEach(() => {
-        client = new Client('Client1Name',category, logger);
+        // client is real class as we are testing it
+        client = new Client(clientName,category, logger);
         message = new Message(category);
     });
+
+    // this has already been set up in the before each. Is this OK?
+    test('it SHOULD update the client name',()=>{
+        expect(client.name).toBe(clientName);
+    })
 
     test('it should call the logger when a message is received',() => {
         const logMessageMock =  jest.spyOn(logger, "logMessage");
@@ -28,10 +34,6 @@ describe ('Client',() => {
         expect(logMessageMock).toHaveBeenCalledWith(message);
     });
 
-    test('it SHOULD update the client name',()=>{
-        expect(client.name).toBe(clientName);
-    })
-    
     test('Client subscribedCategory should be same as the message category', () => {
         raceResultsService.addSubscriber(client);
         raceResultsService.send(message);
