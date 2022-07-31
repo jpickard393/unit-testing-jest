@@ -8,10 +8,11 @@ describe('Message',() => {
     const message = new Message(category,msgText,msgDate);
     
     // just need to test that the message is ctreated with the correct values. 
+    // wrong   testing private category not method - use get
     test('Message is ctreated with the correct values',()=>{
-        expect(message.category).toBe(category);
-        expect(message.messageText).toBe(msgText);
-        expect(message.messageDate).toBe(msgDate);
+        expect(message.getCategory()).toBe(category);
+        expect(message.getMessageText()).toBe(msgText);
+        expect(message.getMessageDate()).toBe(msgDate);
     });
 
 });

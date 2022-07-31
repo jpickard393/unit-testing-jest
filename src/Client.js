@@ -6,17 +6,17 @@ export default class Client {
       this._logger = logger;
    }
 
+   // only accept categories this client has subscribed to
    receive (message) {
-      // only accept categories this client has subscribed to
       this.logIncomingMessage(message);
       return message.category === this.subscribedCategory;
    }
 
-   name(){
+   getName(){
       return this.name;
    }
 
-   subscribedCategory(){
+   getSubscribedCategory(){
       return this.subscribedCategory;
    }
 

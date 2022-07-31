@@ -1,6 +1,3 @@
-import RaceResultsService from '../src/RaceResultsservice';
-import Client from '../src/Client';
-import Message from '../src/Message';
 import Logger from '../src/Logger';
 
 describe('Message sent by RaceResults Service Should log Date and text of each message',() => {

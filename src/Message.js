@@ -5,15 +5,15 @@ export default class Message{
         this.messageText = messageText;
     }
 
-    messageText() {
+    getMessageText() {
         return this.messageText;
     }
 
-    messageDate() {
+    getMessageDate() {
         return this.messageDate;
     }
 
-    category() {
+    getCategory() {
         return this.category;
     }
 }
