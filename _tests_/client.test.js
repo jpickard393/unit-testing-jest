@@ -45,7 +45,7 @@ describe ('Client',() => {
 
     // Review
 
-    // this was wrong.  It was testing a mock function of ckient.  
+    // This was wrong.  It was testing a mock function of client.  
     // Need to test Client class (SUT)
     // when testing one class never mock only dependancies
     // should not need to use any other class that what we are testing.
