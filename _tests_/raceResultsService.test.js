@@ -21,25 +21,33 @@ describe('RaceResultsService',() => {
         client = new Client('Client1Name',category, logger);        
     });
     
-    test('add Subscriber',() =>{
+    test('RaceResultsservice client should be the same as the one added',() =>{
         raceResultsService.addSubscriber(client);
         expect(raceResultsService.client).toBe(client);
     });
 
-    test('remove Subscriber',() =>{
+    test('Client should not be set in the raceResultsService after it has been removed',() =>{        
         raceResultsService.removeSubscriber(client);
         expect(raceResultsService.client).not.toBe(client);
     });
 
-    // here I mock raceResultsService as I don't need the class, but I spy on the send method.  Is this OK?
-    test('send',() =>{
-        jest.mock("../src/RaceResultsservice");
-        
-        const raceResultsService = new RaceResultsService();
-        const sendMock =  jest.spyOn(raceResultsService, "send");
+    // *** Review
 
-        raceResultsService.addSubscriber(client);
-        raceResultsService.send(message);
-        expect(sendMock).toHaveBeenCalledWith(message);
+    // the purpose of this test is to prove that the RaceResultsService sed function
+    // will return true when the client receive function returns true
+    test('Send function should return true',() =>{       
+        const raceResultsService = new RaceResultsService();
+        const clientReceiveMock = jest.fn();
+        clientReceiveMock.mockReturnValue('true');
+        Client.prototype.receive = clientReceiveMock;
+
+        // now create a mock client with the new mocked receive function
+        const clientMock = new Client;
+
+        raceResultsService.addSubscriber(clientMock);
+
+        // test that the return value from the send method is true
+        // this is to test that send() is returnning what client.receive will return
+        expect(raceResultsService.send(message)).toBe('true');
     });
 });

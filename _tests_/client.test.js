@@ -1,4 +1,3 @@
-//import RaceResultsService from '../src/RaceResultsservice';
 import Client from '../src/Client';
 import Message from '../src/Message';
 import Logger from '../src/Logger';
@@ -8,7 +7,6 @@ describe ('Client',() => {
 
     jest.mock("../src/Message");
     jest.mock("../src/Logger");
-
     let client;
     let message; 
     const logger = new Logger();
@@ -54,12 +52,12 @@ describe ('Client',() => {
 
     // I think this now does it correctly - it tests the client.receive(message) funcs return value
     it('receive function SHOULD return TRUE when incoming message category, matches the clients subscribed category', () => {
-        let receiveFunc = client.receive(message);
+        const receiveFunc = client.receive(message);
         expect(receiveFunc).toBe(true);
     });
 
     it('receive function SHOULD return FALSE when incoming message category, does not match Clients subscribed category', () => {
-        let receiveFunc = client.receive('boat race');
+        const receiveFunc = client.receive('boat race');
         expect(receiveFunc).toBe(false);
     });
 
