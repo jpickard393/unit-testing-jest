@@ -21,7 +21,7 @@ describe('RaceResultsService',() => {
         client = new Client('Client1Name',category, logger);        
     });
     
-    test('RaceResultsservice client should be the same as the one added',() =>{
+    test('client should be the same as the one added',() =>{
         raceResultsService.addSubscriber(client);
         expect(raceResultsService.client).toBe(client);
     });
@@ -31,14 +31,12 @@ describe('RaceResultsService',() => {
         expect(raceResultsService.client).not.toBe(client);
     });
 
-    // *** Review
-
-    // the purpose of this test is to prove that the RaceResultsService sed function
-    // will return true when the client receive function returns true
-    test('Send function should return true',() =>{       
+    test('send function Should return true when clients recieve function is successfull',() =>{       
         const raceResultsService = new RaceResultsService();
         const clientReceiveMock = jest.fn();
-        clientReceiveMock.mockReturnValue('true');
+
+        // Mock the clients receive function so we can pass it into the raceresults service
+        clientReceiveMock.mockReturnValue(true);
         Client.prototype.receive = clientReceiveMock;
 
         // now create a mock client with the new mocked receive function
@@ -48,6 +46,8 @@ describe('RaceResultsService',() => {
 
         // test that the return value from the send method is true
         // this is to test that send() is returnning what client.receive will return
-        expect(raceResultsService.send(message)).toBe('true');
+        
+        expect(raceResultsService.send(message)).toBe(true);
+        expect(clientMock.receive).toHaveBeenCalledWith(message);
     });
 });
